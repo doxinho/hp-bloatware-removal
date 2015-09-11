@@ -4,7 +4,7 @@
 $ErrorActionPreference = "silentlycontinue"
 
 # Target and remove all HP Software except Security Manager
-$hpguids = get-wmiobject -class win32_product | Where-Object {$_.Name -like "HP *" -and $_.Name -notmatch "client security manager" -and $_.Name -notmatch "HP Hotkey Support" }
+$hpguids = get-wmiobject -class win32_product | Where-Object {$_.Name -like "HP *" -and $_.Name -notmatch "client security manager" -and $_.Name -notmatch "HP Hotkey Support"}
 foreach($guid in $hpguids){
     $id = $guid.IdentifyingNumber
      write-host ""$guid.Name" is being removed."
