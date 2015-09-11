@@ -4,8 +4,7 @@
 $ErrorActionPreference = "silentlycontinue"
 
 # Target and remove all HP Software except Security Manager
-$hpguids = get-wmiobject -class win32_product | Where-Object {$_.Name -like "HP *"} | Where-Object {$_.Name -notmatch "client security manager"} | Where-Object {$_.Name -notmatch "HP Hotkey Support"}
-
+$hpguids = get-wmiobject -class win32_product | Where-Object {$_.Name -like "HP *" -and $_.Name -notmatch "client security manager" -and $_.Name -notmatch "HP Hotkey Support" }
 foreach($guid in $hpguids){
     $id = $guid.IdentifyingNumber
      write-host ""$guid.Name" is being removed."
@@ -16,7 +15,7 @@ foreach($guid in $hpguids){
 Stop-Process -Name DPClientWizard -Force
 
 # Target and remove Security Manager
-$clientmanager = get-wmiobject -class win32_product | Where-Object {$_.Name -like "HP *"} | Where-Object {$_.Name -match "client security manager"}
+$clientmanager = get-wmiobject -class win32_product | Where-Object {$_.Name -like "HP *" -and $_.Name -match "client security manager"}
 foreach($guid in $clientmanager){
     $id = $guid.IdentifyingNumber
      write-host ""$guid.Name" is being removed."
