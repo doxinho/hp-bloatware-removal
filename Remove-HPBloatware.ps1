@@ -40,8 +40,8 @@ foreach($guid in $foxitguid){
     }
 
 # Target and remove Discover HP products
-$foxitguid = get-wmiobject -class win32_product | Where-Object {$_.Name -like "Discover HP *"}
-foreach($guid in $foxitguid){
+$discoverhp = get-wmiobject -class win32_product | Where-Object {$_.Name -like "Discover HP *"}
+foreach($guid in $discoverhp){
     $id = $guid.IdentifyingNumber
      write-host ""$guid.Name" is being removed."
      &cmd /c "msiexec /uninstall $($id) /qn /norestart"
